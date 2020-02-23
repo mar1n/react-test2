@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import { expect } from 'chai';
 import React from 'react';
 import App, { doIncrement, doDecrement, Counter } from './App';
@@ -49,5 +50,11 @@ describe('App Component', () => {
         wrapper.setState({ counter: 0 });
         wrapper.find('button').at(1).simulate('click');
         expect(wrapper.state().counter).to.equal(-1);
+    })
+    it('calls componentDidMount', () => {
+        sinon.spy(App.prototype, 'componentDidMount');
+
+        const wrapper = mount(<App />);
+        expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
     })
 })
